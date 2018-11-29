@@ -1,0 +1,8 @@
+.suo
+.vscode
+packages
+bin
+obj
+
+*.csv
+
