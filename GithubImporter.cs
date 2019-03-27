@@ -20,17 +20,18 @@ namespace jiratogithub
             _repositoryName = repositoryName;
             _repositoryOwner = repositoryOwner;
 
-            var basicAuth = new Credentials(GitHubUserName, GitHubPassword);
-
-            _client = new GitHubClient(new ProductHeaderValue("fernjiraimporter"));
-            _client.Credentials = basicAuth;
+            _client = new GitHubClient(new ProductHeaderValue("fernjiraimporter"))
+            {
+                Credentials = new Credentials(GitHubUserName, GitHubPassword)
+            };
         }
 
         public async Task<bool> Import(JiraCase jiraCase)
         {
-            var createIssue = new NewIssue(jiraCase.Summary);
-
-            createIssue.Body = jiraCase.GetBody();
+            var createIssue = new NewIssue(jiraCase.Summary)
+            {
+                Body = jiraCase.Summary
+            };
 
             var issue = await _client.Issue.Create(
                 _repositoryOwner,

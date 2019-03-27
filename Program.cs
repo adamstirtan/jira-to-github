@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace jiratogithub
 {
@@ -10,10 +9,10 @@ namespace jiratogithub
 
         static void Main(string[] args)
         {
-            MainAsync(args).GetAwaiter().GetResult();
+            MainAsync().GetAwaiter().GetResult();
         }
 
-        static async Task MainAsync(string[] args)
+        static async Task MainAsync()
         {
             var exporter = new JiraExporter();
             var importer = new GithubImporter(GitHubRepositoryName, GitHubRepositoryOwner);

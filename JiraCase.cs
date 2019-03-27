@@ -1,37 +1,31 @@
-using System.Linq;
-using System.Text;
+using CsvHelper.Configuration.Attributes;
 
 namespace jiratogithub
 {
     public class JiraCase
     {
+        [Name("Summary")]
         public string Summary { get; set; }
-        
-        /*public string IssueKey { get; set; }
+
+        [Name("Issue key")]
+        public string IssueKey { get; set; }
+
+        [Name("Issue id")]
+        public int IssueId { get; set; }
+
+        [Name("Issue Type")]
         public string IssueType { get; set; }
-        public string IssueId { get; set; }
+
+        [Name("Status")]
         public string Status { get; set; }
-        public string Priority { get; set; }
-        public string Assignee { get; set; }
-        public string Description { get; set; }
-        public string Company { get; set; }
-        public string Creator { get; set; }*/
 
-        public string GetBody()
-        {
-            return "";
-            /*
-            var stringBuilder = new StringBuilder();
-            var split = Description.Split("\r\n");
-            
-            var pieces = split.Skip(3).Take(split.Length - 3);
+        [Name("Project key")]
+        public string ProjectKey { get; set; }
 
-            foreach (var piece in pieces)
-            {
-                stringBuilder.Append(pieces);
-            }
+        [Name("Project name")]
+        public string ProjectName { get; set; }
 
-            return stringBuilder.ToString(); */
-        }
+        [Name("Project type")]
+        public string ProjectType { get; set; }
     }
 }
