@@ -1,30 +1,44 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace jiratogithub
 {
-    class Program
+    internal class Program
     {
-        private static string GitHubRepositoryName = "";
-        private static string GitHubRepositoryOwner = "";
+        // Repository name
+        private static readonly string GitHubRepositoryName = "jiraimport";
 
-        static void Main(string[] args)
+        // Organization name
+        private static readonly string GitHubRepositoryOwner = "fernsoftware";
+
+        private static void Main(string[] args)
         {
             MainAsync().GetAwaiter().GetResult();
         }
 
-        static async Task MainAsync()
+        private static async Task MainAsync()
         {
-            var exporter = new JiraExporter();
+            var exporter = new JiraExporter(new List<string> { "1.csv", "2.csv", "3.csv" });
+
             var importer = new GithubImporter(GitHubRepositoryName, GitHubRepositoryOwner);
+            await importer.InitializeAsync();
 
-            var jiraCases = exporter.Export("JIRA.csv");
+            var jiraCases = exporter.Export();
 
-            var result = false;
+            var unresolved = jiraCases.Where(x => x.Status != "Done");
 
-            foreach (JiraCase jiraCase in jiraCases)
+            Console.WriteLine($"Exported {unresolved.Count()} unresolved cases");
+
+            foreach (var jiraCase in jiraCases)
             {
-                result = await importer.Import(jiraCase);
+                await importer.Import(jiraCase);
+                Console.Write(".");
             }
+
+            Console.WriteLine("\nFinished import!");
+            Console.ReadKey();
         }
     }
 }

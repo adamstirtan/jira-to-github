@@ -1,3 +1,5 @@
+using System;
+
 using CsvHelper.Configuration.Attributes;
 
 namespace jiratogithub
@@ -6,6 +8,9 @@ namespace jiratogithub
     {
         [Name("Summary")]
         public string Summary { get; set; }
+
+        [Name("Description")]
+        public string Description { get; set; }
 
         [Name("Issue key")]
         public string IssueKey { get; set; }
@@ -27,5 +32,20 @@ namespace jiratogithub
 
         [Name("Project type")]
         public string ProjectType { get; set; }
+
+        [Name("Priority")]
+        public string Priority { get; set; }
+
+        [Name("Resolution")]
+        public string Resolution { get; set; }
+
+        [Name("Assignee")]
+        public string Assignee { get; set; }
+
+        [Name("Reporter")]
+        public string Reporter { get; set; }
+
+        [Name("Created")]
+        public DateTime Created { get; set; }
     }
 }
