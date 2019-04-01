@@ -8,10 +8,10 @@ namespace jiratogithub
     internal class Program
     {
         // Repository name
-        private static readonly string GitHubRepositoryName = "jiraimport";
+        private static readonly string GitHubRepositoryName = "";
 
         // Organization name
-        private static readonly string GitHubRepositoryOwner = "fernsoftware";
+        private static readonly string GitHubRepositoryOwner = "";
 
         private static void Main(string[] args)
         {
@@ -21,17 +21,16 @@ namespace jiratogithub
         private static async Task MainAsync()
         {
             var exporter = new JiraExporter(new List<string> { "1.csv", "2.csv", "3.csv" });
-
             var importer = new GithubImporter(GitHubRepositoryName, GitHubRepositoryOwner);
-            await importer.InitializeAsync();
 
+            await importer.InitializeAsync();
             var jiraCases = exporter.Export();
 
             var unresolved = jiraCases.Where(x => x.Status != "Done");
 
             Console.WriteLine($"Exported {unresolved.Count()} unresolved cases");
 
-            foreach (var jiraCase in jiraCases)
+            foreach (var jiraCase in unresolved)
             {
                 await importer.Import(jiraCase);
                 Console.Write(".");

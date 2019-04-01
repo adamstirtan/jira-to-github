@@ -47,7 +47,7 @@ namespace jiratogithub
 
                 var updateIssue = issue.ToUpdate();
 
-                updateIssue.AddLabel("imported");
+                updateIssue.AddLabel("JIRA");
 
                 await _client.Issue.Update(_repositoryId, issue.Number, updateIssue);
 
